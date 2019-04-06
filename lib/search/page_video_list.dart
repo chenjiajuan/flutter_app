@@ -30,6 +30,7 @@ class VideoPage extends State<VideoListPage> {
   @override
   Widget build(BuildContext context) {
     return new Container(
+      alignment: Alignment.center,
         child: GridView.count(
       crossAxisCount: 1,
       crossAxisSpacing: 0,

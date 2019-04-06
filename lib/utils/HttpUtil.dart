@@ -17,4 +17,17 @@ class HttpUtil {
    }
 
 
+   static void get2(String url,Function callBack){
+     http.get(url).then((response){
+       print('response :'+response.toString());
+       if(response.statusCode!=200){
+       }else{
+         Map<String,dynamic> map=json.decode(response.body);
+         print("map : "+map.toString());
+         callBack(map);
+       }
+     });
+
+   }
+
 }

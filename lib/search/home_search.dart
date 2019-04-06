@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/search/page_book_list.dart';
 import 'package:flutter_app/search/page_video_list.dart';
+import 'package:flutter_app/search/page_poetry.dart';
 
  class HomeSearch extends StatefulWidget{
   @override
@@ -31,10 +32,13 @@ import 'package:flutter_app/search/page_video_list.dart';
               children:myTabs.map((dynamic item ){
                 if(item.text=='短视频'){
                   return new VideoListPage();
-                }else{
+                }else if(item.text=='诗词'){
+                    return new PoetryList(key: GlobalKey(debugLabel:'poerty'));
+                 }else {
                   return new BooListPage(item.text);
                 }
-              }) .toList(),
+              }
+              ) .toList(),
         )
 
         ));
