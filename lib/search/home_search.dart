@@ -8,11 +8,10 @@ import 'package:flutter_app/search/page_poetry.dart';
   State<StatefulWidget> createState() {
     return SearchPage();
   }
-
  }
 
  class SearchPage  extends State<HomeSearch>{
-   final List<Tab> myTabs=<Tab>[
+   final List<Widget> myTabs=<Widget>[
      Tab(text: '段子'),
      Tab(text: '新闻'), //https://www.apiopen.top/journalismApi
      Tab(text: '诗词'), //https://api.apiopen.top/likePoetry?name=%E6%9D%8E%E7%99%BD
@@ -22,25 +21,25 @@ import 'package:flutter_app/search/page_poetry.dart';
 
   @override
   Widget build(BuildContext context) {
-    return  new DefaultTabController(
+    return   DefaultTabController(
         length:myTabs.length,
-        child: new Scaffold(
+         child:  Scaffold(
           appBar: AppBar(
-            bottom: TabBar(tabs: myTabs),
+             title: TabBar(tabs: myTabs),
           ),
           body: TabBarView(
               children:myTabs.map((dynamic item ){
                 if(item.text=='短视频'){
-                  return new VideoListPage();
+                  return  VideoListPage(key: GlobalKey(debugLabel: 'video'));
                 }else if(item.text=='诗词'){
-                    return new PoetryList(key: GlobalKey(debugLabel:'poerty'));
+                    return  PoetryList(key: GlobalKey(debugLabel:'poerty'));
                  }else {
-                  return new BooListPage(item.text);
+                //  return  BooListPage(GlobalKey(debugLabel: 'book${item.text}'),item.text);
+                  return  BooListPage(item.text);
                 }
               }
               ) .toList(),
         )
-
         ));
   }
 

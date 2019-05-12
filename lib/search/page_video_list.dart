@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/widget/item_video.dart';
 
 class VideoListPage extends StatefulWidget {
+
+   VideoListPage({Key key}):super(key :key);
+
   @override
   State<StatefulWidget> createState() {
     return VideoPage();
@@ -9,7 +12,7 @@ class VideoListPage extends StatefulWidget {
 }
 
 class VideoPage extends State<VideoListPage> {
-  List<String> videoList=new List();
+  List<String> videoList = new List();
 
   @override
   void initState() {
@@ -30,18 +33,29 @@ class VideoPage extends State<VideoListPage> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      alignment: Alignment.center,
+        width: 200,
+        height: 100,
         child: GridView.count(
-      crossAxisCount: 1,
-      crossAxisSpacing: 0,
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-      children: videoList.map((String text){
-            return  _buildItem(0);
-      }).toList()
+            crossAxisCount: 1,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10, //竖向间距
+            childAspectRatio: 3/2, //宽高比
+            primary: false,
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+            children: _buildItem2()
     ));
   }
 
-  Widget _buildItem(int index) {
-    return new VideoItem();
+
+
+  List<Widget> _buildItem2(){
+    List<Widget> list=List();
+    for(int i=0;i<videoList.length;i++){
+      list.add(new Container(
+        color: Colors.blue,
+           child: VideoItem(),
+          ));
+    }
+    return list;
   }
 }

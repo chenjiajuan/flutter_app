@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   int _selectedIndex=0;
-  var listBar=['最新','动态','我的'];
+  var listBar=['搞笑','音乐','我的'];
   var _homePage;
 
   @override
@@ -44,11 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
      );
 
     return Scaffold(
-      appBar: AppBar(
-       title: Text(
-         listBar[_selectedIndex]
-       ),
-      ),
       body: _homePage,
       bottomNavigationBar: BottomNavigationBar(items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.ac_unit),title: Text('最新')),

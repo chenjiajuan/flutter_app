@@ -21,6 +21,7 @@ dependencies:
   http: ^0.12.0
   json_annotation: ^2.0.0
   video_player: ^0.6.4
+  audioplayers: ^0.12.0
 
 
 
@@ -42,6 +43,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - images/play_needle.png
+    - images/cd.jpeg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
