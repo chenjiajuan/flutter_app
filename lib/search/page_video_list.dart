@@ -3,7 +3,7 @@ import 'package:flutter_app/widget/item_video.dart';
 
 class VideoListPage extends StatefulWidget {
 
-   VideoListPage({Key key}):super(key :key);
+//   VideoListPage({Key key}):super(key :key);
 
   @override
   State<StatefulWidget> createState() {
@@ -17,17 +17,19 @@ class VideoPage extends State<VideoListPage> {
   @override
   void initState() {
     super.initState();
-    videoList.add('1');
-    videoList.add('1');
-    videoList.add('1');
-    videoList.add('1');
-    videoList.add('1');
-    videoList.add('1');
+    videoList.add('http://cloud.video.taobao.com/play/u/332830327/p/1/e/6/t/1/50086218289.mp4');
+    videoList.add('https://cloud.video.taobao.com/play/u/2763096131/p/1/e/6/t/1/50225262418.mp4');
+    videoList.add('http://cloud.video.taobao.com/play/u/4050302885/p/1/e/6/t/1/222825658411.mp4');
+    videoList.add('http://cloud.video.taobao.com/play/u/4050302885/p/1/e/6/t/1/222825658411.mp4');
+    videoList.add('http://cloud.video.taobao.com/play/u/4050302885/p/1/e/6/t/1/222825658411.mp4');
+    videoList.add('http://cloud.video.taobao.com/play/u/4050302885/p/1/e/6/t/1/222825658411.mp4');
+
   }
 
   @override
   void dispose() {
     super.dispose();
+    print('TAG, VideoListPage dispose');
   }
 
   @override
@@ -53,7 +55,7 @@ class VideoPage extends State<VideoListPage> {
     for(int i=0;i<videoList.length;i++){
       list.add(new Container(
         color: Colors.blue,
-           child: VideoItem(),
+           child: VideoItem(videoList[i]),
           ));
     }
     return list;

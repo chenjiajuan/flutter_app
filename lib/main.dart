@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: _homePage,
       bottomNavigationBar: BottomNavigationBar(items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.ac_unit),title: Text('最新')),
-        BottomNavigationBarItem(icon: Icon(Icons.access_alarm),title: Text('动态')),
+        BottomNavigationBarItem(icon: Icon(Icons.access_alarm),title: Text('音乐')),
         BottomNavigationBarItem(icon: Icon(Icons.insert_chart),title: Text('我的'))
       ],
         currentIndex: _selectedIndex,

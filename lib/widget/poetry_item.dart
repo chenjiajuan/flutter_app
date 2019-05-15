@@ -4,7 +4,7 @@ import 'package:flutter_app/bo/PoetryBo.dart';
 class PoetryItem extends StatefulWidget{
  final Poetry poetry;
 
-  PoetryItem(this.poetry);
+  PoetryItem({this.poetry,Key key}) :super(key :key);
 
   @override
   State<StatefulWidget> createState() {
