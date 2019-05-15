@@ -5,6 +5,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bo/music.dart';
+import 'package:flutter_app/widget/player_music.dart';
+
 class HomeDynamic extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -15,14 +17,8 @@ class DynamicPage extends State<HomeDynamic>  with TickerProviderStateMixin{
   List<Music> _musicList = List();
   int _position = 0;
   AudioPlayer _audioPlayer = AudioPlayer();
-  int totalDuration = 0;
-  double sliderValue = 0;
-  String totalTime = '';
-  String nowTime = '';
-  Duration _duration;
   String musicName='';
   String musicAuthor='';
-  AudioPlayerState _audioPlayerState;
   final _cdRotateTween = new Tween<double>(begin: 0.0, end: 1.0); //动画参数
   AnimationController  _controllerRecord ; //动画控制器
   Animation<double> _animationRecord;
@@ -54,24 +50,24 @@ class DynamicPage extends State<HomeDynamic>  with TickerProviderStateMixin{
             )
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: Stack(
               children: <Widget>[
                 Container(
                     alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                    margin: EdgeInsets.fromLTRB(0, 45, 0, 0),
                     child: Container(
                       width: 250,
                       height: 250,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(125),
+                          shape: BoxShape.circle,
                           image: DecorationImage(
                               image: NetworkImage(
                                   'http://simg.sinajs.cn/blog7style/images/blog_editor/ten_map.png'),
                               fit: BoxFit.cover)),
                     )),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 100, 0, 0),
+                  margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
                   alignment: Alignment.center,
                   child: _getCDWidget(),
                 ),
@@ -86,76 +82,17 @@ class DynamicPage extends State<HomeDynamic>  with TickerProviderStateMixin{
               ],
             ),
           ),
-          Container(
-            height: 50,
-            alignment: Alignment.center,
-            margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      nowTime,
-                      style: TextStyle(color: Colors.white24),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    //进度条
-                    margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                    height: 4,
-                    child: Slider(
-                      onChanged: (newValue) {
-                        int seconds = (_duration.inSeconds * newValue).round();
-                         print("audioPlayer.seek: $seconds");
-                         _audioPlayer.seek(new Duration(seconds: seconds));
-                      },
-                      value: sliderValue,
-                      activeColor: Colors.white54,
-                      inactiveColor: Colors.white24,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      totalTime,
-                      style: TextStyle(color: Colors.white24),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-            alignment: Alignment.center,
-            child: Container(
-                width: 100,
-                child: Row(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: lastMusic,
-                      child: Icon(Icons.first_page),
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.stop),
-                      onTap: audioState,
-                    ),
-                    GestureDetector(
-                      onTap: nextMusic,
-                      child: Icon(Icons.last_page),
-                    )
-                  ],
-                )),
-          ),
+          PlayerMusic(
+            musicList: _musicList,
+            onComplete: (){},
+            lastMusic:(position){ print('lastMusic');nameAndAuthor(position);},
+            nextMusic: (position){print('nextMusic');nameAndAuthor(position);},
+            startPlay: (){ _controllerRecord.forward();},
+            pausePlay: (){ _controllerRecord.stop(canceled: false);},
+            stopPlay: (){ _controllerRecord.stop(canceled: false);},
+          )
+
+
         ],
       ),
     );
@@ -163,14 +100,12 @@ class DynamicPage extends State<HomeDynamic>  with TickerProviderStateMixin{
 
   @override
   void deactivate() {
-    _audioPlayer.stop();
     _controllerRecord.stop(canceled: true);
     super.deactivate();
   }
 
   @override
   void dispose() {
-    _audioPlayer.release();
     _controllerRecord.dispose();
     super.dispose();
   }
@@ -186,7 +121,6 @@ class DynamicPage extends State<HomeDynamic>  with TickerProviderStateMixin{
     _musicList.add(music2);
     _musicList.add(music3);
     _musicList.add(music4);
-   // AudioPlayer.logEnabled = true;
     //唱片旋转
    _controllerRecord = new AnimationController(
     duration: const Duration(milliseconds: 15000),vsync:this);
@@ -201,119 +135,18 @@ class DynamicPage extends State<HomeDynamic>  with TickerProviderStateMixin{
       }
     });
 
-    _audioPlayer.onDurationChanged.listen((Duration duration) {
-      setState(() {
-        this._duration = duration;
-        totalDuration = duration.inMilliseconds;
-        totalTime = _formatDuration(duration);
-      });
-    });
-    _audioPlayer.onAudioPositionChanged.listen((Duration duration) {
-      //print('onAudioPosition : ${duration.inMilliseconds}');
-      setState(() {
-        sliderValue = duration.inMilliseconds / totalDuration;
-        if(sliderValue>1.0){
-          sliderValue=1.0;
-        }
-        nowTime = _formatDuration(duration);
-      });
-      // print('onAudioPosition , sliderValue: $sliderValue , totalTime:$totalTime');
-    });
-    _audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
-      this._audioPlayerState=s;
-      if(s==AudioPlayerState.COMPLETED){
-         nextMusic();
-      }
-      //print('onPlayStateChange $s');
-    });
-    _audioPlayer.onPlayerCompletion.listen((event) {
-      print('onPlayerCompletion');
-       nextMusic();
-    });
-    nameAndAuthor();
+    nameAndAuthor(_position);
   }
 
-  lastMusic() {
-    if (_position == 0) {
-      return;
-    }
-    _position -=1;
-    playAudio();
-    nameAndAuthor();
-  }
 
-  nextMusic() {
-    if (_position == _musicList.length - 1) {
-      _position = 0;
-    } else {
-      _position += 1;
-    }
-
-    playAudio();
-    nameAndAuthor();
-
-  }
-
-  nameAndAuthor(){
+  nameAndAuthor(int position){
     setState(() {
-      musicName=_musicList[_position].name;
-      musicAuthor=_musicList[_position].author;
+      musicName=_musicList[position].name;
+      musicAuthor=_musicList[position].author;
     });
 
   }
 
-  playAudio() async {
-    _audioPlayer.release();
-    int result =
-        await _audioPlayer.play(_musicList[_position].url, volume: 1.0);
-    if (result == 1) {
-      print('play url');
-    }
-    _controllerRecord.forward();
-  }
-
-  stopAudio() async {
-    int result = await _audioPlayer.stop();
-    if (result == 1) {
-      print('stop Audio');
-    }
-    _controllerRecord.stop(canceled: false);
-  }
-
-  pauseAudio() async{
-    int result=await _audioPlayer.pause();
-    if(result==1){
-      print('play is pause');
-    }
-    _controllerRecord.stop(canceled: false);
-  }
-
-  resumeAudio() async{
-    int result=await _audioPlayer.resume();
-    if(result==1){
-      print('play is resume');
-    }
-  }
-  audioState() {
-    print('onTop');
-    playAudio();
-    if(_audioPlayerState==AudioPlayerState.PLAYING){
-      pauseAudio();
-    }else if(_audioPlayerState==AudioPlayerState.PAUSED){
-      resumeAudio();
-    }
-  }
-
-
-  String _formatDuration(Duration d) {
-    int minute = d.inMinutes;
-    int second = (d.inSeconds > 60) ? (d.inSeconds % 60) : d.inSeconds;
-    //print(d.inMinutes.toString() + "======" + d.inSeconds.toString());
-    String format = ((minute < 10) ? "0$minute" : "$minute") +
-        ":" +
-        ((second < 10) ? "0$second" : "$second");
-    return format;
-  }
 
   Widget _getCDWidget() {
     return new Container(

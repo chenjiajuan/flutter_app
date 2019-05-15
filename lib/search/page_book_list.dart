@@ -38,11 +38,16 @@ class BookPage extends State<BooListPage>{
     });
 
   }
+  @override
+  void dispose() {
+    super.dispose();
+    print('TAG, BookPage dispose');
+  }
 
   @override
   Widget build(BuildContext context) {
     if(jokes==null){
-      new Center(
+      return new Center(
         child: CircularProgressIndicator(),
       );
     }else{
@@ -50,7 +55,6 @@ class BookPage extends State<BooListPage>{
           itemCount: jokes.length,
           itemBuilder: (context,i)=>buildItem(i),
            controller: _controller,
-
       );
       return RefreshIndicator(child: listView, onRefresh: _pullToRefresh);
     }
@@ -73,9 +77,11 @@ class BookPage extends State<BooListPage>{
         }
         jokes.addAll(jokesBo.data);
         print(" TAG request jokes : ${jokes.toString()}");
-        setState(() {
+        if(mounted){
+          setState(() {
 
-        });
+          });
+        }
         currentPage++;
       });
 

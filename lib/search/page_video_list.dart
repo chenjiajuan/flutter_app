@@ -3,7 +3,7 @@ import 'package:flutter_app/widget/item_video.dart';
 
 class VideoListPage extends StatefulWidget {
 
-   VideoListPage({Key key}):super(key :key);
+//   VideoListPage({Key key}):super(key :key);
 
   @override
   State<StatefulWidget> createState() {
@@ -28,6 +28,7 @@ class VideoPage extends State<VideoListPage> {
   @override
   void dispose() {
     super.dispose();
+    print('TAG, VideoListPage dispose');
   }
 
   @override

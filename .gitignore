@@ -76,3 +76,4 @@ local.properties
 android/app/src/main/java/io/
 gen/
 ios/Frameworks/
+./gradle/

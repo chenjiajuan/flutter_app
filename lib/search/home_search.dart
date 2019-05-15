@@ -30,9 +30,10 @@ import 'package:flutter_app/search/page_poetry.dart';
           body: TabBarView(
               children:myTabs.map((dynamic item ){
                 if(item.text=='短视频'){
-                  return  VideoListPage(key: GlobalKey(debugLabel: 'video'));
+                  return  VideoListPage();
                 }else if(item.text=='诗词'){
-                    return  PoetryList(key: GlobalKey(debugLabel:'poerty'));
+                  //  return  PoetryList(key: GlobalKey(debugLabel:'poerty'));
+                    return  PoetryList();
                  }else {
                 //  return  BooListPage(GlobalKey(debugLabel: 'book${item.text}'),item.text);
                   return  BooListPage(item.text);

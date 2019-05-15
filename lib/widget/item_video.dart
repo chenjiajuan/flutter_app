@@ -15,37 +15,24 @@ class VideoContent extends State<VideoItem> {
   bool _isPlaying = false;
   String time = "0:00";
   VoidCallback listener;
-  AnimationController _animationController;
-  static final _tween=Tween<double>(begin: 0.0,end: 1.0);
-  VoidCallback animationListener;
-
 
   @override
   void initState() {
     super.initState();
     listener = () {
-      if(!mounted){
+      if (!mounted) {
         return;
       }
-      _animationController=AnimationController(vsync: null,
-          duration: Duration(seconds: 1),
-
-      );
-      animationListener=(){
-         setState(() {
-
-         });
-      };
-      
       _isPlaying = _videoPlayerController.value.isPlaying;
       int currentSeconds = _videoPlayerController.value.position.inSeconds;
       int currentMinutes = _videoPlayerController.value.position.inMinutes;
       if (mounted) {
-         setState(() {
-           _currentTime=currentMinutes.toString()+":"+currentSeconds.toString();
-           _position=(_videoPlayerController.value.position.inMilliseconds/_videoPlayerController.value.duration.inMilliseconds);
-
-         });
+        setState(() {
+          _currentTime =
+              currentMinutes.toString() + ":" + currentSeconds.toString();
+          _position = (_videoPlayerController.value.position.inMilliseconds /
+              _videoPlayerController.value.duration.inMilliseconds);
+        });
       }
     };
     _videoPlayerController = VideoPlayerController.network(
@@ -53,18 +40,14 @@ class VideoContent extends State<VideoItem> {
       ..addListener(listener)
       ..setLooping(true)
       ..initialize().then((_) {
-        if(!mounted)
-          return;
+        if (!mounted) return;
         int timeSeconds = _videoPlayerController.value.duration.inSeconds;
         int timeMinutes = _videoPlayerController.value.duration.inMinutes;
         time = timeMinutes.toString() + ":" + timeSeconds.toString();
-        if(mounted){
-          setState(() {
-          });
+        if (mounted) {
+          setState(() {});
         }
-
       });
-
   }
 
   @override
@@ -72,7 +55,6 @@ class VideoContent extends State<VideoItem> {
     super.dispose();
     _videoPlayerController.removeListener(listener);
     _videoPlayerController.dispose();
-
   }
 
   @override
@@ -86,7 +68,10 @@ class VideoContent extends State<VideoItem> {
           new SizedBox(
             child: _videoPlayerController.value.initialized
                 ? new VideoPlayer(_videoPlayerController)
-                : new Container(),
+                : new Container(
+                    width: 0,
+                    height: 0,
+                  ),
             width: double.maxFinite,
             height: 250,
           ),
@@ -94,51 +79,46 @@ class VideoContent extends State<VideoItem> {
               color: Colors.black26,
               width: double.maxFinite,
               height: 40,
-              child:Opacity(
-                  child: new Row(
-                    children: <Widget>[
-                      new Container(  //图片
-                        margin: EdgeInsets.fromLTRB(20, 0, 5, 0),
-                        child: new GestureDetector(
-                          child: _iconState(_isPlaying),
-                          onTap: () {
-                            if (_isPlaying) {
-                              _videoPlayerController.pause();
-                            } else {
-                              _videoPlayerController.play();
-                            }
-                          },
-                        ),
-                      ),
-                      new Container(  //当前时间
-                        margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                        child: new Text(
-                          _currentTime,
-                          style: new TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      new Container(  //进度条
-                          width: 250,
-                          height: 4,
-                          child: new LinearProgressIndicator(
-                            backgroundColor: Colors.white,
-                            value: _position,
-                            valueColor:
-                            new AlwaysStoppedAnimation<Color>(Colors.orange),
-                          )),
-                      new Container(  //时间
-                        margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                        child: new Text(
-                          this.time.toString(),
-                          style: new TextStyle(color: Colors.white),
-                        ),
-                      )
-                    ],
-                  ))
-
-               )
-
-
+              child: new Row(
+                children: <Widget>[
+                  new Container(
+                    margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: new GestureDetector(
+                      child: _iconState(_isPlaying),
+                      onTap: () {
+                        if (_isPlaying) {
+                          _videoPlayerController.pause();
+                        } else {
+                          _videoPlayerController.play();
+                        }
+                      },
+                    ),
+                  ),
+                  new Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                    child: new Text(
+                      _currentTime,
+                      style: new TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child:  LinearProgressIndicator(
+                      backgroundColor: Colors.white,
+                      value: _position,
+                      valueColor:
+                      new AlwaysStoppedAnimation<Color>(Colors.orange),
+                    ),
+                  ),
+                  new Container(
+                    margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: new Text(
+                      this.time.toString(),
+                      style: new TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ))
         ],
       ),
     );
@@ -151,6 +131,4 @@ class VideoContent extends State<VideoItem> {
       return new Icon(Icons.pause);
     }
   }
-
-
 }
