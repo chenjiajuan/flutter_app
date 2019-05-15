@@ -104,8 +104,7 @@ class DynamicPage extends State<HomeDynamic>  with TickerProviderStateMixin{
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Container(
-                    //进度条
+                  child: Container(//进度条
                     margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
                     height: 4,
                     child: Slider(
