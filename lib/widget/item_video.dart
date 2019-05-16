@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoItem extends StatefulWidget {
- final String url;
-  VideoItem(this.url);
+  final String url;
 
+  VideoItem(this.url);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,6 +19,7 @@ class VideoContent extends State<VideoItem> {
   bool _isPlaying = false;
   String time = "0:00";
   VoidCallback listener;
+  VideoPlayer _videoPlayer;
 
   @override
   void initState() {
@@ -26,18 +27,19 @@ class VideoContent extends State<VideoItem> {
     listener = () {
       _isPlaying = _videoPlayerController.value.isPlaying;
       print('_listener:_isPlaying : $_isPlaying');
+
       int currentSeconds = _videoPlayerController.value.position.inSeconds;
       int currentMinutes = _videoPlayerController.value.position.inMinutes;
       if (mounted) {
         setState(() {
-          _currentTime = currentMinutes.toString() + ":" + currentSeconds.toString();
+          _currentTime =
+              currentMinutes.toString() + ":" + currentSeconds.toString();
           _position = (_videoPlayerController.value.position.inMilliseconds /
               _videoPlayerController.value.duration.inMilliseconds);
         });
       }
     };
-    _videoPlayerController = VideoPlayerController.network(
-        widget.url)
+    _videoPlayerController = VideoPlayerController.network(widget.url)
       ..addListener(listener)
       ..setLooping(true)
       ..initialize().then((_) {
@@ -49,7 +51,7 @@ class VideoContent extends State<VideoItem> {
           setState(() {});
         }
       });
-
+    _videoPlayer = VideoPlayer(_videoPlayerController);
   }
 
   @override
@@ -61,31 +63,30 @@ class VideoContent extends State<VideoItem> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       height: 250,
-      color: Colors.orange,
-      child:  Stack(
+      child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
-           SizedBox(
+          SizedBox(
             child: _videoPlayerController.value.initialized
-                ? new VideoPlayer(_videoPlayerController)
-                : new Container(
+                ? _videoPlayer
+                : Container(
                     width: 0,
                     height: 0,
                   ),
             width: double.maxFinite,
             height: 250,
           ),
-           Container(
+          Container(
               color: Colors.black26,
               width: double.maxFinite,
               height: 40,
-              child: new Row(
+              child:  Row(
                 children: <Widget>[
-                   Container(
+                  Container(
                     margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child:  GestureDetector(
+                    child: GestureDetector(
                       child: _iconState(_isPlaying),
                       onTap: () {
                         print('_isPlaying:$_isPlaying');
@@ -97,27 +98,26 @@ class VideoContent extends State<VideoItem> {
                       },
                     ),
                   ),
-                   Container(
+                  Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                    child:  Text(
+                    child: Text(
                       _currentTime,
                       style: new TextStyle(color: Colors.white),
                     ),
                   ),
                   Expanded(
-                    flex: 1,
-                    child:  LinearProgressIndicator(
-                      backgroundColor: Colors.white,
-                      value: _position,
-                      valueColor:
-                       AlwaysStoppedAnimation<Color>(Colors.orange),
-                    ),
-                  ),
-                   Container(
+                      flex: 1,
+                      child: Slider(
+                        value: _position,
+                        onChanged: (newValue) {},
+                        activeColor: Colors.orange,
+                        inactiveColor: Colors.white,
+                      )),
+                  Container(
                     margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child:  Text(
+                    child: Text(
                       this.time.toString(),
-                      style:  TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white),
                     ),
                   )
                 ],
@@ -129,9 +129,15 @@ class VideoContent extends State<VideoItem> {
 
   Widget _iconState(bool isPlaying) {
     if (isPlaying) {
-      return new Icon(Icons.pause,color: Colors.white,);
+      return new Icon(
+        Icons.pause,
+        color: Colors.white,
+      );
     } else {
-      return new Icon(Icons.play_arrow,color: Colors.white,);
+      return new Icon(
+        Icons.play_arrow,
+        color: Colors.white,
+      );
     }
   }
 }

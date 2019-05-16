@@ -56,7 +56,7 @@ class BookPage extends State<BooListPage>{
           itemBuilder: (context,i)=>buildItem(i),
            controller: _controller,
       );
-      return RefreshIndicator(child: listView, onRefresh: _pullToRefresh);
+      return RefreshIndicator(child:  listView, onRefresh: _pullToRefresh);
     }
   }
 

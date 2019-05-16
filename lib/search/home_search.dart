@@ -32,10 +32,8 @@ import 'package:flutter_app/search/page_poetry.dart';
                 if(item.text=='短视频'){
                   return  VideoListPage();
                 }else if(item.text=='诗词'){
-                  //  return  PoetryList(key: GlobalKey(debugLabel:'poerty'));
                     return  PoetryList();
                  }else {
-                //  return  BooListPage(GlobalKey(debugLabel: 'book${item.text}'),item.text);
                   return  BooListPage(item.text);
                 }
               }

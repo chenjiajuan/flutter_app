@@ -54,7 +54,6 @@ class VideoPage extends State<VideoListPage> {
     List<Widget> list=List();
     for(int i=0;i<videoList.length;i++){
       list.add(new Container(
-        color: Colors.blue,
            child: VideoItem(videoList[i]),
           ));
     }
