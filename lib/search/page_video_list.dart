@@ -34,7 +34,7 @@ class VideoPage extends State<VideoListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return  Container(
         width: 200,
         height: 100,
         child: GridView.count(

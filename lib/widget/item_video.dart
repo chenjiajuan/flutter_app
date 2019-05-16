@@ -129,12 +129,12 @@ class VideoContent extends State<VideoItem> {
 
   Widget _iconState(bool isPlaying) {
     if (isPlaying) {
-      return new Icon(
+      return  Icon(
         Icons.pause,
         color: Colors.white,
       );
     } else {
-      return new Icon(
+      return  Icon(
         Icons.play_arrow,
         color: Colors.white,
       );

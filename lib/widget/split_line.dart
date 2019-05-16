@@ -4,9 +4,9 @@ class SpiltLine extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: new Row(
+      child:  Row(
         children: <Widget>[
-          new Expanded(child: new Divider(
+           Expanded(child:  Divider(
             height: 10,
             color: Colors.black12
           )
