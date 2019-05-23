@@ -30,15 +30,15 @@ class PoetryState extends State<PoetryList> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       width: double.infinity,
       height: double.infinity,
-      child: new Column(
+      child: Column(
         children: <Widget>[
-          new Container(
-            child: new TextField(
-              decoration: new InputDecoration(
-                suffixIcon: new Icon(Icons.search),
+          Container(
+            child: TextField(
+              decoration: InputDecoration(
+                suffixIcon: Icon(Icons.search),
                 hintText: '请输入诗词相关字',
               ),
               keyboardType: TextInputType.text,
@@ -49,9 +49,9 @@ class PoetryState extends State<PoetryList> {
             height: 40,
             margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
           ),
-          new Text(textEditingController.text),
-          new Expanded(
-            child: new ListView.builder(
+          Text(textEditingController.text),
+          Expanded(
+            child: ListView.builder(
                 itemCount: list.length,
                 itemBuilder: (context, i) => buildItem(list[i], ValueKey(i))),
           ),
