@@ -75,12 +75,12 @@ class PoetryState extends State<PoetryList> {
       if (mounted) {
         setState(() {});
       }
-      print('list : ${list.length}');
+     // print('list : ${list.length}');
     });
   }
 
   PoetryItem buildItem(Poetry poetry, Key i) {
-    print("buildItem  poetry : ${poetry.authors}");
+   // print("buildItem  poetry : ${poetry.authors}");
     return PoetryItem(poetry: poetry, key: i);
   }
 }

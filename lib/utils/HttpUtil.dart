@@ -9,7 +9,7 @@ class HttpUtil {
          }else{
            Map<String,dynamic> map=json.decode(response.body);
            data=map["data"];
-           print("reponse : "+data.toString());
+          // print("reponse : "+data.toString());
           callBack(map);
          }
       });
@@ -19,11 +19,11 @@ class HttpUtil {
 
    static void get2(String url,Function callBack){
      http.get(url).then((response){
-       print('response :'+response.toString());
+      // print('response :'+response.toString());
        if(response.statusCode!=200){
        }else{
          Map<String,dynamic> map=json.decode(response.body);
-         print("map : "+map.toString());
+        // print("map : "+map.toString());
          callBack(map);
        }
      });
