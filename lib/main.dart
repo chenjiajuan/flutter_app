@@ -14,8 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -37,6 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
   var listBar=['搞笑','音乐','我的','图片'];
   var _homePage;
 
+  //IndexedStack 配合AutomaticKeepAliveClientMixin 存储页面信息，不至于每次切换刷新
+
+
   @override
   Widget build(BuildContext context) {
      _homePage=IndexedStack(
@@ -51,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(icon: Icon(Icons.insert_chart),title: Text('图片')),
       ],
         currentIndex: _selectedIndex,
-        fixedColor: Colors.blue,
+        fixedColor: Colors.orange,
         onTap: _onItemTapped,
         iconSize: 20,
       )

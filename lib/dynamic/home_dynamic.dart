@@ -13,7 +13,7 @@ class HomeDynamic extends StatefulWidget {
   }
 }
 
-class DynamicPage extends State<HomeDynamic> with TickerProviderStateMixin {
+class DynamicPage extends State<HomeDynamic> with TickerProviderStateMixin,AutomaticKeepAliveClientMixin {
   List<Music> _musicList = List();
   int _position = 0;
   String musicName = '';
@@ -223,6 +223,9 @@ class DynamicPage extends State<HomeDynamic> with TickerProviderStateMixin {
                       image: NetworkImage(coverArt), fit: BoxFit.cover)))),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 //动画包装类

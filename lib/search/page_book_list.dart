@@ -6,9 +6,6 @@ import 'package:flutter_app/widget/joke_item.dart';
 import 'dart:async';
 
 class BooListPage extends StatefulWidget{
-  final String keyWord;
-
-  BooListPage(this.keyWord);
 
   @override
   State<StatefulWidget> createState() {
@@ -17,7 +14,7 @@ class BooListPage extends StatefulWidget{
 
 }
 
-class BookPage extends State<BooListPage>{
+class BookPage extends State<BooListPage> with AutomaticKeepAliveClientMixin{
   List<Joke> jokes=List();
   int currentPage=1;
   ScrollController _controller=ScrollController();
@@ -96,5 +93,8 @@ class BookPage extends State<BooListPage>{
       return SpiltLine();
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
 }

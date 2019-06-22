@@ -11,7 +11,7 @@ class VideoListPage extends StatefulWidget {
   }
 }
 
-class VideoPage extends State<VideoListPage> {
+class VideoPage extends State<VideoListPage>  with AutomaticKeepAliveClientMixin{
   List<String> videoList = new List();
 
   @override
@@ -59,4 +59,7 @@ class VideoPage extends State<VideoListPage> {
     }
     return list;
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

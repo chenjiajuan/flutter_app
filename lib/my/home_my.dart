@@ -4,7 +4,7 @@ import 'package:flutter_app/service/navigation_service.dart';
 import 'dart:async';
 
 /**
- * 1.flutter页面添加原生组件
+ * 1.flutter页面添加原生组件 ios端未实现原生组件，因此无法加载
  *
  * 2. flutter跳转native
  */
@@ -15,7 +15,7 @@ class HomeMy extends StatefulWidget {
   }
 }
 
-class MyPage extends State<HomeMy> {
+class MyPage extends State<HomeMy>  with AutomaticKeepAliveClientMixin{
   Map<String, String> creationParams = new Map();
   MethodChannel _channelText;
 
@@ -54,9 +54,9 @@ class MyPage extends State<HomeMy> {
           child: Container(
             height: 50,
             alignment: Alignment.centerLeft,
-            child: Text('native2 Activity'),
+            child: Text('点击跳转native activity'),
           ),
-          onDoubleTap: _jumpToNativeActivity,
+          onTap: _jumpToNativeActivity,
         )
       ],
     );
@@ -75,4 +75,7 @@ class MyPage extends State<HomeMy> {
   _updateTextView() async {
     await _channelText.invokeMethod('updateTextView', 'hello textview');
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
