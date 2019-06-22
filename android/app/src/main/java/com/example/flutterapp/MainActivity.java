@@ -21,7 +21,6 @@ public class MainActivity extends FlutterActivity {
     TextViewFactory.registerWith(this.registrarFor("io.flutter.plugins.TextViewPlugin"));
     ServiceLoader.getInstance().registerWith(this.registrarFor("io.flutter.plugins.ServicePlugin"));
     GeneratedPluginRegistrant.registerWith(this);
-
   }
 
 
