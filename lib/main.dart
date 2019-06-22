@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
         body: _homePage,
+        resizeToAvoidBottomPadding: false,
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(

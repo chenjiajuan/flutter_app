@@ -60,6 +60,7 @@ class MyPage extends State<HomeMy> {
   _jumpToNativeActivity() {
     print('native Activity');
     NavigationService.openPage('flutter://nativeActivity', {"text":"hello native activity!!"}, false);
+
   }
 
   _onPlatformViewCreated(int index) {

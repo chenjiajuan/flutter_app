@@ -53,7 +53,6 @@ public class CustomerText implements PlatformView , MethodChannel.MethodCallHand
 
         }
         result.success("method recive success");
-
     }
 
     private void updateTextView(String text){
