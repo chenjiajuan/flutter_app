@@ -30,4 +30,8 @@ class HttpUtil {
 
    }
 
+   static void _getHttpData(){
+    // var httpClent=HttpClient()
+   }
+
 }

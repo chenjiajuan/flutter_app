@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/search/home_search.dart';
 import 'package:flutter_app/dynamic/home_dynamic.dart';
 import 'package:flutter_app/my/home_my.dart';
+import 'package:flutter_app/picture/home_picture.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,13 +34,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   int _selectedIndex=0;
-  var listBar=['搞笑','音乐','我的'];
+  var listBar=['搞笑','音乐','我的','图片'];
   var _homePage;
 
   @override
   Widget build(BuildContext context) {
      _homePage=IndexedStack(
-       children: <Widget>[HomeSearch(),HomeDynamic(),HomeMy()],
+       children: <Widget>[HomeSearch(),HomeDynamic(),HomePicture()],
        index: _selectedIndex
      );
 
@@ -48,10 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.ac_unit),title: Text('最新')),
         BottomNavigationBarItem(icon: Icon(Icons.access_alarm),title: Text('音乐')),
-        BottomNavigationBarItem(icon: Icon(Icons.insert_chart),title: Text('我的'))
+        BottomNavigationBarItem(icon: Icon(Icons.insert_chart),title: Text('图片')),
+
       ],
         currentIndex: _selectedIndex,
-        fixedColor: Colors.deepPurple,
+        fixedColor: Colors.blue,
         onTap: _onItemTapped,
         iconSize: 20,
 
