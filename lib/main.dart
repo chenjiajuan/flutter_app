@@ -7,10 +7,10 @@ import 'package:flutter_app/picture/home_picture.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final navigatorKey=GlobalKey<NavigatorState>();
+  final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Flutter Demo',
       navigatorKey: navigatorKey,
@@ -40,36 +40,28 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
      _homePage=IndexedStack(
-       children: <Widget>[HomeSearch(),HomeDynamic(),HomePicture()],
+       children: <Widget>[HomeSearch(),HomeDynamic(),HomeMy()],
        index: _selectedIndex
      );
-
     return Scaffold(
       body: _homePage,
       bottomNavigationBar: BottomNavigationBar(items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.ac_unit),title: Text('最新')),
         BottomNavigationBarItem(icon: Icon(Icons.access_alarm),title: Text('音乐')),
         BottomNavigationBarItem(icon: Icon(Icons.insert_chart),title: Text('图片')),
-
       ],
         currentIndex: _selectedIndex,
         fixedColor: Colors.blue,
         onTap: _onItemTapped,
         iconSize: 20,
-
       )
     );
+
   }
 
-  void _onItemTapped(int index){
+  void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex=index;
-
-
+      _selectedIndex = index;
     });
   }
-
-
 }
-
-

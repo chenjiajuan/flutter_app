@@ -69,14 +69,14 @@ class BookPage extends State<BooListPage>{
 
   void _initData( ) async{
       String url=this.url+currentPage.toString();
-      print('url：'+url);
+      //print('url：'+url);
       Http.HttpUtil.get(url, (data){
         Jokes jokesBo=new Jokes.from(data);
         if(currentPage==1){
           jokes.clear();
         }
         jokes.addAll(jokesBo.data);
-        print(" TAG request jokes : ${jokes.toString()}");
+       // print(" TAG request jokes : ${jokes.toString()}");
         if(mounted){
           setState(() {
 
@@ -88,7 +88,7 @@ class BookPage extends State<BooListPage>{
 
   }
   Widget buildItem(int index){
-    print(" TAG buildItem jokes : ${jokes.toString()}");
+   // print(" TAG buildItem jokes : ${jokes.toString()}");
     if((index+1)%2==0){
       Joke joke=jokes[index];
       return  JokeItem(joke);
